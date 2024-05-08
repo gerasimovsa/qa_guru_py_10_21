@@ -1,4 +1,3 @@
-import os
 import pytest
 from allure import step
 from appium import webdriver
@@ -49,8 +48,10 @@ def mobile_management(request):
 
     yield
 
-    attach.add_html(browser)
-    attach.add_screenshot(browser)
-    attach.add_video(browser)
+    with step("Attaching screenshot, xml and video"):
+        attach.add_xml(browser)
+        attach.add_screenshot(browser)
+        attach.add_video_mobile(browser)
 
-    browser.quit()
+    with step("Browser teardown"):
+        browser.quit()
